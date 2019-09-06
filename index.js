@@ -6,7 +6,6 @@
 // don't support natively imported WebAssembly as an ES module, but
 // eventually the manual initialization won't be required!
 import init, { Universe, Cell } from './pkg/wasm_game_of_life.js';
-import init_bg, { memory } from './pkg/wasm_game_of_life_bg.wasm';
 
 async function run() {
   // First up we need to actually load the wasm file, so we use the
@@ -22,8 +21,7 @@ async function run() {
   // Also note that the promise, when resolved, yields the wasm module's
   // exports which is the same as importing the `*_bg` module in other
   // modes
-  await init();
-  await init_bg();
+  let { memory } = await init();
 }
 
 run();
